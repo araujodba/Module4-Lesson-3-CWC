@@ -12,35 +12,43 @@ struct ContentView: View {
     @State var tabIndex: Int = 1
     
     var body: some View {
-        TabView(selection:  $tabIndex) {
-            // MARK: Tab 1
-            Text( "This tab’s tag is \(tabIndex).")
-                .tabItem {
-                    Image(systemName: "tortoise.fill")
-                    Text("Tab 1")
-                }.tag(1)
-            
-            //MARK: Tab 2
-            Button(action: {
-                tabIndex = 3
-            }, label: {
-                Text("Take me to tab 3!")
-            })
-                .tabItem {
-                    Image(systemName: "arrow.right")
-                    Text("Tab 2")
-                }.tag(2)
-            
-            //MARK: Tab 3
-            List {
-                ForEach(1..<100) { item in
-                    Text("This is Tab3!")
+        NavigationView {
+            TabView(selection:  $tabIndex) {
+                // MARK: Tab 1
+                List {
+                    Text( "This tab’s tag is \(tabIndex).")
                 }
-            }
-                .tabItem {
-                    Image(systemName: "hands.clap.fill")
-                    Text("Tab 3")
-                }.tag(3)
+                    .tabItem {
+                        Image(systemName: "tortoise.fill")
+                        Text("Tab 1")
+                    }.tag(1)
+                
+                //MARK: Tab 2
+                List {
+                    Button(action: {
+                        tabIndex = 3
+                    }, label: {
+                        Text("Take me to tab 3!")
+                        })
+                }
+                    .tabItem {
+                        Image(systemName: "arrow.right")
+                        Text("Tab 2")
+                    }.tag(2)
+                
+                //MARK: Tab 3
+                List {
+                    ForEach(1..<101) { item in
+                        Text("\(item). This is Tab3!")
+                    }
+                    
+                }
+                    .tabItem {
+                            Image(systemName: "hands.clap.fill")
+                            Text("Tab 3")
+                    }.tag(3)
+                    
+            }.navigationBarTitle("Tab \(tabIndex)")
         }
     }
 }
